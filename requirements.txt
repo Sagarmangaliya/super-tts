@@ -4,3 +4,4 @@ TTS
 fastapi
 uvicorn
 numpy
+git+https://github.com/myshell-ai/OpenVoice.git
