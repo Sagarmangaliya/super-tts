@@ -1,32 +1,12 @@
 version: '3.8'
 
 services:
-  inference:
-    image: nvcr.io/nvidia/tritonserver:23.01-py3
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 2
-              capabilities: [gpu]
-    command:
-      - tritonserver --model-repository=/models
-
   api:
     build: .
     ports:
       - "8000:8000"
     environment:
       - TRITON_URL=http://inference:8001
-    depends_on:
-      - inference
-
-  frontend:
-    image: node:18
-    working_dir: /app
-    ports:
-      - "3000:3000"
     volumes:
-      - ./frontend:/app
-    command: npm start
+      - .:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
