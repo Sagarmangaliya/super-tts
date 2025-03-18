@@ -1,0 +1,6 @@
+torch
+torchaudio
+TTS
+fastapi
+uvicorn
+numpy
